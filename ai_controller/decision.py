@@ -1,4 +1,3 @@
-
 """Decision module selecting actions from user instructions and UI state."""
 from __future__ import annotations
 

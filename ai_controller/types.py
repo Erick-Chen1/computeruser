@@ -21,8 +21,7 @@ class Decision:
     """Action chosen by the decision module."""
     action: str
     target: Optional[str]
-
-
+    coordinates: Optional[tuple[int, int]] = None
 
 @dataclass
 class VerificationResult:
