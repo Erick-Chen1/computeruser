@@ -1,3 +1,4 @@
+
 """Perception module capturing the current environment."""
 from __future__ import annotations
 
@@ -10,17 +11,17 @@ try:  # soft dependency for screenshots
 except Exception:  # pragma: no cover - optional
     pyautogui = None  # type: ignore
 
-try:  # soft dependency for image handling
+try:  # soft dependency for OCR-based UI extraction
     from PIL import Image
+    import pytesseract  # type: ignore
 except Exception:  # pragma: no cover - optional
     Image = None  # type: ignore
+    pytesseract = None  # type: ignore
 
-try:  # optional dependency for OmniParser based UI extraction
-    from omniparser import OmniParser  # type: ignore
-except Exception:  # pragma: no cover - optional
-    OmniParser = None  # type: ignore
 
 from .types import Perception
+
+
 
 def _save_screenshot() -> str:
     """Capture a screenshot to a temporary PNG file.
@@ -46,39 +47,29 @@ def _save_screenshot() -> str:
 
 
 def _omni_parse(image_path: str) -> Dict[str, Any]:
-    """Generate a UI tree using OmniParser if available.
+    """Generate a simple UI tree using OCR data.
 
-    The real OmniParser project parses a screenshot into structured elements.
-    Here we attempt to invoke it when installed; otherwise an empty tree is
-    returned so the rest of the pipeline can continue.
+    This acts as a lightweight stand-in for the OmniParser component by
+    extracting text and bounding boxes from the screenshot with Tesseract. If
+    pytesseract is not available, an empty tree is returned.
     """
 
-    if OmniParser is None or Image is None:
+    if pytesseract is None or Image is None:
         return {"elements": []}
 
-    try:
-        parser = OmniParser()
-        nodes = parser.parse(image_path)  # type: ignore[attr-defined]
-    except Exception:
-        return {"elements": []}
-
+    image = Image.open(image_path)
+    data = pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT)
     elements = []
-    for node in nodes if isinstance(nodes, list) else []:
-        if not isinstance(node, dict):
+    for i, text in enumerate(data.get("text", [])):
+        text = text.strip()
+        if not text:
             continue
-        bbox_raw = node.get("bbox") or node.get("box") or [0, 0, 0, 0]
-        try:
-            left, top, right, bottom = [int(v) for v in bbox_raw]
-        except Exception:
-            left = top = 0
-            right = bottom = 0
         bbox = {
-            "left": left,
-            "top": top,
-            "width": max(0, right - left),
-            "height": max(0, bottom - top),
+            "left": int(data["left"][i]),
+            "top": int(data["top"][i]),
+            "width": int(data["width"][i]),
+            "height": int(data["height"][i]),
         }
-        text = str(node.get("text", ""))
         elements.append({"text": text, "bbox": bbox})
     return {"elements": elements}
 
@@ -88,5 +79,6 @@ def capture_environment() -> Perception:
 
     path = _save_screenshot()
     ui_tree = _omni_parse(path)
+
     return Perception(screenshot=path, ui_tree=ui_tree)
 
