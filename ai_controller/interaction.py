@@ -13,4 +13,7 @@ def parse_user_command(raw_command: str) -> UserInstruction:
     """
     if not isinstance(raw_command, str):
         raise TypeError("Command must be a string")
-    return UserInstruction(command=raw_command.strip())
+    command = raw_command.strip()
+    if not command:
+        raise ValueError("Command cannot be empty")
+    return UserInstruction(command=command)

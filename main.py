@@ -15,5 +15,6 @@ def run_cycle(user_text: str, mem: memory.Memory) -> verification.VerificationRe
 
 if __name__ == "__main__":
     mem = memory.Memory()
-    res = run_cycle("demo command", mem)
+    res = run_cycle("click demo", mem)
+
     print(res)
