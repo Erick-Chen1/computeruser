@@ -15,4 +15,5 @@ def verify_action(instruction: UserInstruction, before: Perception, after: Perce
         return VerificationResult(success=False, message="no change detected")
     if after_action != expected:
         return VerificationResult(success=False, message="mismatch")
+
     return VerificationResult(success=True, message="verified")
