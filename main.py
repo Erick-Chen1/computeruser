@@ -1,5 +1,13 @@
 """Simple orchestrator demonstrating the modular architecture."""
-from ai_controller import interaction, perception, decision, execution, verification, memory
+
+from ai_controller import (
+    interaction,
+    perception,
+    decision,
+    execution,
+    verification,
+    memory,
+)
 
 
 def run_cycle(user_text: str, mem: memory.Memory) -> verification.VerificationResult:
@@ -15,6 +23,14 @@ def run_cycle(user_text: str, mem: memory.Memory) -> verification.VerificationRe
 
 if __name__ == "__main__":
     mem = memory.Memory()
-    res = run_cycle("click demo", mem)
 
-    print(res)
+    print("Enter natural language commands (type 'exit' to quit).")
+    while True:
+        try:
+            user_input = input("command> ").strip()
+        except EOFError:  # pragma: no cover - interactive only
+            break
+        if user_input.lower() in {"exit", "quit"}:
+            break
+        result = run_cycle(user_input, mem)
+        print(result)

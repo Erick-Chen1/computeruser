@@ -23,6 +23,7 @@ class Decision:
     target: Optional[str]
 
 
+
 @dataclass
 class VerificationResult:
     """Outcome of the verification step."""
