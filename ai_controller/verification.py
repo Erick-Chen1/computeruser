@@ -1,3 +1,4 @@
+
 """Verification module confirming that an action achieved the goal."""
 from __future__ import annotations
 

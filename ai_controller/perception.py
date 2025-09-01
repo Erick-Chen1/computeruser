@@ -1,3 +1,4 @@
+
 """Perception module capturing the current environment."""
 from __future__ import annotations
 
@@ -17,7 +18,9 @@ except Exception:  # pragma: no cover - optional
     Image = None  # type: ignore
     pytesseract = None  # type: ignore
 
+
 from .types import Perception
+
 
 
 def _save_screenshot() -> str:
@@ -76,5 +79,6 @@ def capture_environment() -> Perception:
 
     path = _save_screenshot()
     ui_tree = _omni_parse(path)
+
     return Perception(screenshot=path, ui_tree=ui_tree)
 

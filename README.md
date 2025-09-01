@@ -27,4 +27,6 @@ Run an interactive session:
 python main.py
 ```
 
+
 Type natural language commands such as "click OK" or "type hello" to control the computer. Type `exit` to quit.
+
