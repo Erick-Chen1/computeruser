@@ -1,5 +1,4 @@
 """Simple orchestrator demonstrating the modular architecture."""
-
 from ai_controller import (
     interaction,
     perception,
@@ -23,7 +22,6 @@ def run_cycle(user_text: str, mem: memory.Memory) -> verification.VerificationRe
 
 if __name__ == "__main__":
     mem = memory.Memory()
-
     print("Enter natural language commands (type 'exit' to quit).")
     while True:
         try:

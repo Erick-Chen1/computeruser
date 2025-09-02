@@ -1,4 +1,3 @@
-
 """Execution module translating decisions into concrete actions."""
 from __future__ import annotations
 
