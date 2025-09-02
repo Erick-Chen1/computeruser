@@ -22,7 +22,6 @@ except Exception:  # pragma: no cover - optional
 
 from .types import Perception
 
-
 def _save_screenshot() -> str:
     """Capture a screenshot to a temporary PNG file.
 

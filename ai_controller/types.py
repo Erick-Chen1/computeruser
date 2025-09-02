@@ -24,6 +24,7 @@ class Decision:
     coordinates: Optional[tuple[int, int]] = None
 
 
+
 @dataclass
 class VerificationResult:
     """Outcome of the verification step."""

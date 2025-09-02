@@ -5,7 +5,6 @@ import json
 from typing import Any, Optional
 
 from openai import OpenAI
-
 from .config import LLM_MODEL
 from .types import Decision, Perception, UserInstruction
 
@@ -22,7 +21,6 @@ def _find_coordinates(target: Optional[str], ui_tree: dict[str, Any]) -> Optiona
             y = int(bbox.get("top", 0) + bbox.get("height", 0) / 2)
             return (x, y)
     return None
-
 
 def plan_action(instruction: UserInstruction, perception: Perception) -> Decision:
     """Generate an action plan using an LLM."""
