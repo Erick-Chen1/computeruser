@@ -23,7 +23,7 @@ class Decision:
     target: Optional[str]
     coordinates: Optional[tuple[int, int]] = None
 
-
+      
 @dataclass
 class VerificationResult:
     """Outcome of the verification step."""

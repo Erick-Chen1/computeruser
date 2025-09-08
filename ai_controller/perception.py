@@ -19,9 +19,7 @@ try:  # optional dependency for OmniParser based UI extraction
     from omni_parser import parse as omni_parse  # type: ignore
 except Exception:  # pragma: no cover - optional
     omni_parse = None  # type: ignore
-
 from .types import Perception
-
 
 def _save_screenshot() -> str:
     """Capture a screenshot to a temporary PNG file.

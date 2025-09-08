@@ -33,6 +33,7 @@ copy .env.example .env # Windows
 
 然后编辑 `.env`，设置 `OPENAI_API_KEY`，并可按需修改 `LLM_MODEL`、`VLM_MODEL` 等配置。
 
+
 若要启用截图解析，请从 [OmniParser 仓库](https://github.com/microsoft/OmniParser) 安装其依赖，并在 `.env` 中设置 `OMNIPARSER_CMD` 为可执行命令，例如 `python /path/to/OmniParser/run.py`。未设置时感知模块将返回空 UI 树。
 
 运行主程序：
@@ -42,4 +43,3 @@ python main.py
 ```
 
 在提示符中输入如 “点击 OK” 或 “输入 hello” 等自然语言，即可让 AI 执行相应操作。输入 `exit` 可退出程序。
-
