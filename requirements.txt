@@ -1,5 +1,7 @@
+# Core runtime dependencies. OmniParser is invoked via an external command
+# defined by the ``OMNIPARSER_CMD`` environment variable, so no ``omniparser``
+# package is needed here.
 pyautogui
 pillow
-omniparser
 openai
 python-dotenv

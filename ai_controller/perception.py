@@ -16,10 +16,9 @@ except Exception:  # pragma: no cover - optional
     Image = None  # type: ignore
 
 try:  # optional dependency for OmniParser based UI extraction
-    from omniparser import OmniParser  # type: ignore
+    from omni_parser import parse as omni_parse  # type: ignore
 except Exception:  # pragma: no cover - optional
-    OmniParser = None  # type: ignore
-
+    omni_parse = None  # type: ignore
 from .types import Perception
 
 def _save_screenshot() -> str:
@@ -53,12 +52,11 @@ def _omni_parse(image_path: str) -> Dict[str, Any]:
     returned so the rest of the pipeline can continue.
     """
 
-    if OmniParser is None or Image is None:
+    if omni_parse is None:
         return {"elements": []}
 
     try:
-        parser = OmniParser()
-        nodes = parser.parse(image_path)  # type: ignore[attr-defined]
+        nodes = omni_parse(image_path)
     except Exception:
         return {"elements": []}
 
